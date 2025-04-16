@@ -1,13 +1,15 @@
 ﻿#pragma once
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 #ifdef LIMBOGGER_EXPORTS
 #define LIMBOGGER_API __declspec(dllexport)
 #else
 #define LIMBOGGER_API __declspec(dllimport)
 #endif
+#elif defined(__GNUC__) || defined(__clang__)
+#define LIMBOGGER_API __attribute__((visibility("default")))
 #else
-#define LOGGER_API
+#define LIMBOGGER_API
 #endif
 
 #include <string> // TODO? should we use our own string class?
